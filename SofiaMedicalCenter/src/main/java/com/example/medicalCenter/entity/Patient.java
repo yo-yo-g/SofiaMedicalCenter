@@ -2,18 +2,16 @@ package com.example.medicalCenter.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "patient")
 public class Patient {
 	private static final String PATIENT_ROLE = "PATIENT";
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private int ID;
@@ -24,7 +22,7 @@ public class Patient {
 	@Column(name = "age")
 	private int age;
 	
-	@Column(name = "phoneNumber")
+	@Column(name = "phoneNumber", unique=true)
 	private String phoneNumber;
 	
 	@Column(name = "email")
@@ -35,9 +33,6 @@ public class Patient {
 	
 	@Column(name = "dna")
 	private String DNA;
-	
-	@OneToMany(fetch = FetchType.LAZY)
-	private GeneticTest geneticTest;
 
 	public String getRole() {
 		return PATIENT_ROLE;
@@ -98,5 +93,12 @@ public class Patient {
 	public void setSymptoms(String symptoms) {
 		this.symptoms = symptoms;
 	}
-	
+	public Patient(String name, int age, String phoneNumber, String email, String symptoms, String dNA) {
+		this.name = name;
+		this.age = age;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.symptoms = symptoms;
+		DNA = dNA;
+	}
 }

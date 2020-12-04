@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.medicalCenter.algoritm.Algo;
@@ -21,14 +22,21 @@ public class GeneticTest {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 
-	@Column(name = "testName")
-	private String testName;
+	@Column(name = "name")
+	private String name;
 
 	@Column(name = "result")
 	private String result;
 
+	public GeneticTest(Patient patient) {
+		this.patient = patient;
+	}
+
 	@Column(name = "dateOfExecution")
 	private LocalDate dateOfExecution;
+	
+	@ManyToOne
+	private Patient patient;
 
 	public int getID() {
 		return ID;
@@ -46,17 +54,25 @@ public class GeneticTest {
 		this.result = result;
 	}
 
-	public String getTestName() {
-		return testName;
+	public String getName() {
+		return name;
 	}
 
-	public void setTestName(String testName) {
-		this.testName = testName;
+	public void setTestName(String name) {
+		this.name = name;
 	}
 
-	public String getEvaluatedResult(Patient patient) {
+	public LocalDate getDateOfExecution() {
+		return dateOfExecution;
+	}
+
+	public void setDateOfExecution(LocalDate dateOfExecution) {
+		this.dateOfExecution = dateOfExecution;
+	}
+
+	public String getEvaluatedResult() {
 		String evaluatedResult = "";
-		Algo algoritm = new Algoritm(patient.getDNA());
+		Algo algoritm = new Algoritm(this.patient.getDNA());
 		if (algoritm.calculate() < 0.2) {
 			evaluatedResult = Decease.LOW_RISK.toString();
 		}
