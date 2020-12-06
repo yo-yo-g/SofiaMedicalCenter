@@ -1,26 +1,33 @@
 package com.example.medicalCenter.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "physician")
 public class MedicalPhysician {
-	private static final String PATIENT_ROLE = "Medical_Physician";
+	private static final String USER_ROLE = "Medical_Physician";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 
-	@Column(name = "name")
 	private String name;
+	
+	public MedicalPhysician() {
+		this.name = "";
+	}
 
-	public String getRole() {
-		return PATIENT_ROLE;
+	public String getUserRole() {
+		return USER_ROLE;
 	}
 
 	public int getID() {

@@ -1,10 +1,11 @@
 package com.example.medicalCenter.service;
 
+import java.util.List;
+
+import com.example.medicalCenter.entity.GeneticTest;
 import com.example.medicalCenter.entity.Patient;
 
 public interface PatientService {
-	void createPatient(String name, int age, String phoneNumber, String email, String symptoms, String DNA);
-	Patient findByName(String name);
-	Patient findByPhoneNumber(String phoneNumber);
-
+	Patient createPatient(Patient patient);
+	List<GeneticTest> listAllGeneticTestForPatient(int id);
 }

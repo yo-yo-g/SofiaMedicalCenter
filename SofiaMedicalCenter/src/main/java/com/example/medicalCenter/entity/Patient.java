@@ -1,57 +1,62 @@
 package com.example.medicalCenter.entity;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "patient")
 public class Patient {
-	private static final String PATIENT_ROLE = "PATIENT";
+	
+	private static final String USER_ROLE = "PATIENT";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private int ID;
 	
-	@Column(name = "name")
-	private String name;
+	@OneToMany
+	private List<GeneticTest> geneticTest;
 	
-	@Column(name = "age")
+	private String patientName;
+
 	private int age;
-	
-	@Column(name = "phoneNumber", unique=true)
+
 	private String phoneNumber;
 	
-	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "symptoms")
 	private String symptoms;
-	
-	@Column(name = "dna")
-	private String DNA;
 
-	public String getRole() {
-		return PATIENT_ROLE;
-	}
+	private String DNA;
 
 	public int getID() {
 		return ID;
 	}
 
-	public void setID(int iD) {
-		ID = iD;
+	public List<GeneticTest> getGeneticTest() {
+		return geneticTest;
 	}
 
-	public String getName() {
-		return name;
+	public void setGeneticTest(List<GeneticTest> geneticTest) {
+		this.geneticTest = geneticTest;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
 
 	public int getAge() {
@@ -78,14 +83,6 @@ public class Patient {
 		this.email = email;
 	}
 
-	public String getDNA() {
-		return DNA;
-	}
-
-	public void setDNA(String dNA) {
-		DNA = dNA;
-	}
-
 	public String getSymptoms() {
 		return symptoms;
 	}
@@ -93,12 +90,23 @@ public class Patient {
 	public void setSymptoms(String symptoms) {
 		this.symptoms = symptoms;
 	}
-	public Patient(String name, int age, String phoneNumber, String email, String symptoms, String dNA) {
-		this.name = name;
-		this.age = age;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.symptoms = symptoms;
-		DNA = dNA;
+
+	public String getDNA() {
+		return this.DNA;
 	}
+
+	public void setDNA(String DNA) {
+		this.DNA = DNA;
+	}
+
+	public static String getUserRole() {
+		return USER_ROLE;
+	}
+	
+	@Override
+	public String toString() {
+		return "Patient [name=" + patientName + ", age=" + age + ", phoneNumber=" + phoneNumber + ", email=" + email
+				+ ", symptoms=" + symptoms + ", DNA=" + DNA + "]";
+	}
+
 }

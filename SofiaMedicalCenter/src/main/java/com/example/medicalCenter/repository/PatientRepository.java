@@ -7,9 +7,5 @@ import com.example.medicalCenter.entity.Patient;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer>{
-	
-	Patient findByName(String patientName);
-
-	Patient findByPhoneNumber(String phoneNumber);
 
 }
