@@ -13,10 +13,14 @@ import com.example.medicalCenter.algoritm.Algoritm;
 import com.example.medicalCenter.enums.Decease;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "geneticTest")
 public class GeneticTest {
@@ -31,39 +35,6 @@ public class GeneticTest {
 
 	private LocalDate dateOfExecution;
 
-	public GeneticTest() {
-		this.testName = "";
-		this.dateOfExecution = null;
-		this.result = "";
-	}
-
-	public int getID() {
-		return ID;
-	}
-
-	public String getTestName() {
-		return testName;
-	}
-
-	public void setTestName(String testName) {
-		this.testName = testName;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	public LocalDate getDateOfExecution() {
-		return dateOfExecution;
-	}
-
-	public void setDateOfExecution(LocalDate dateOfExecution) {
-		this.dateOfExecution = dateOfExecution;
-	}
 	public void getPossibilityOfGenerticDisorder(String DNA) {
 		Algo algoritm = new Algoritm(DNA);
 		if(algoritm.calculate() < 0.2) {
