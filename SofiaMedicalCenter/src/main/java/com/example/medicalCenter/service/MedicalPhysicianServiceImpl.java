@@ -28,9 +28,8 @@ public class MedicalPhysicianServiceImpl implements MedicalPhysicianService {
 	MedicalPhysicianRepository medicalPhysicianRepository;
 
 	@Override
-	public void createMedicalPhysician(MedicalPhysician medicalPhysician) {
-		medicalPhysicianRepository.saveAndFlush(medicalPhysician);
-
+	public MedicalPhysician createMedicalPhysician(MedicalPhysician medicalPhysician) {
+		return medicalPhysicianRepository.saveAndFlush(medicalPhysician);
 	}
 
 	@Override

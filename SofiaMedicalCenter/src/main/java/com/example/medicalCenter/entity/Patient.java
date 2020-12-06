@@ -2,7 +2,9 @@ package com.example.medicalCenter.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +28,7 @@ public class Patient {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
 	private int ID;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<GeneticTest> geneticTest;
 	
 	private String patientName;

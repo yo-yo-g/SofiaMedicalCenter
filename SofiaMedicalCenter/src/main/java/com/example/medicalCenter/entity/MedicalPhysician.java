@@ -1,5 +1,6 @@
 package com.example.medicalCenter.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,8 @@ public class MedicalPhysician {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-
+	
+	@Column(name = "name", unique=true)
 	private String name;
 
 

@@ -8,7 +8,7 @@ import com.example.medicalCenter.entity.Patient;
 
 public interface MedicalPhysicianService {
 
-	void createMedicalPhysician(MedicalPhysician medicalPhysician);
+	MedicalPhysician createMedicalPhysician(MedicalPhysician medicalPhysician);
 
 	List<GeneticTest> listAllGeneticTests();
 
