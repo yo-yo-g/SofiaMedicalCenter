@@ -22,6 +22,10 @@ public class MedicalCenterController {
 
 	@Autowired
 	MedicalPhysicianService medicalPhysicianService;
+	
+	private static final String PATIENT = "Patient";
+	
+	private static final String PHYSICIAN = "Medical physician";
 
 	public MedicalCenterController(PatientService patientService, MedicalPhysicianService medicalPhysicianService) {
 		this.patientService = patientService;
@@ -31,12 +35,12 @@ public class MedicalCenterController {
 	@PostMapping("/createPatient")
 	public ResponseEntity<Object> createPatient(@RequestBody Patient patient) {
 		patientService.createPatient(patient);
-		return new ResponseEntity<>("Patient is created successfully", HttpStatus.CREATED);
+		return new ResponseEntity<>(PATIENT + " is created successfully", HttpStatus.CREATED);
 	}
 
 	@PostMapping("/createMedicalPhysician")
 	public ResponseEntity<Object> createProduct(@RequestBody MedicalPhysician medicalPhysician) {
 		medicalPhysicianService.createMedicalPhysician(medicalPhysician);
-		return new ResponseEntity<>("MedicalPhysician is created successfully", HttpStatus.CREATED);
+		return new ResponseEntity<>(PHYSICIAN + " is created successfully", HttpStatus.CREATED);
 	}
 }
