@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.medicalCenter.entity.GeneticTest;
 import com.example.medicalCenter.entity.MedicalPhysician;
 import com.example.medicalCenter.entity.Patient;
 import com.example.medicalCenter.service.MedicalPhysicianService;
@@ -23,9 +24,11 @@ public class MedicalCenterController {
 	@Autowired
 	MedicalPhysicianService medicalPhysicianService;
 	
-	private static final String PATIENT = "Patient";
+	private static final String PATIENT = "Patient ";
 	
-	private static final String PHYSICIAN = "Medical physician";
+	private static final String PHYSICIAN = "Medical physician ";
+	
+	private static final String TEST = "Genetic test ";
 
 	public MedicalCenterController(PatientService patientService, MedicalPhysicianService medicalPhysicianService) {
 		this.patientService = patientService;
@@ -35,12 +38,18 @@ public class MedicalCenterController {
 	@PostMapping("/createPatient")
 	public ResponseEntity<Object> createPatient(@RequestBody Patient patient) {
 		patientService.createPatient(patient);
-		return new ResponseEntity<>(PATIENT + " is created successfully", HttpStatus.CREATED);
+		return new ResponseEntity<>(PATIENT + "is created successfully", HttpStatus.CREATED);
 	}
 
 	@PostMapping("/createMedicalPhysician")
-	public ResponseEntity<Object> createProduct(@RequestBody MedicalPhysician medicalPhysician) {
+	public ResponseEntity<Object> createMedicalPhysician(@RequestBody MedicalPhysician medicalPhysician) {
 		medicalPhysicianService.createMedicalPhysician(medicalPhysician);
-		return new ResponseEntity<>(PHYSICIAN + " is created successfully", HttpStatus.CREATED);
+		return new ResponseEntity<>(PHYSICIAN + "is created successfully", HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/createGeneticTest")
+	public ResponseEntity<Object> createGeneticTest(@RequestBody Patient patient, @RequestBody  GeneticTest geneticTest) {
+		medicalPhysicianService.startGeneticTestWithParameters(patient, geneticTest);
+		return new ResponseEntity<>(TEST + " is created successfully", HttpStatus.CREATED);
 	}
 }
