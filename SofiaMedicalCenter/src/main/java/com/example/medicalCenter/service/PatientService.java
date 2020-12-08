@@ -7,5 +7,5 @@ import com.example.medicalCenter.entity.Patient;
 
 public interface PatientService {
 	Patient createPatient(Patient patient);
-	List<GeneticTest> listAllGeneticTestForPatient(int id);
+	List<GeneticTest> listAllGeneticTestForPatient(Long id);
 }

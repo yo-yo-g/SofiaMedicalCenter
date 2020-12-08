@@ -25,7 +25,7 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public List<GeneticTest> listAllGeneticTestForPatient(int id) {
+	public List<GeneticTest> listAllGeneticTestForPatient(Long id) {
 		return patientRepository.getOne(id).getGeneticTest();
 	}
 

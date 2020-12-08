@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,21 +28,27 @@ public class Patient {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)  
-	private int ID;
+	private Long ID;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<GeneticTest> geneticTest;
 	
+	@NotNull
 	private String patientName;
 
+	@NotNull
 	private int age;
 
+	@NotNull
 	private String phoneNumber;
 	
+	@NotNull
 	private String email;
 	
+	@NotNull
 	private String symptoms;
 
+	@NotNull
 	private String DNA;
 	
 	@Override

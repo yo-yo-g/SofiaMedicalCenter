@@ -27,7 +27,7 @@ public class GeneticTest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ID;
+	private Long ID;
 
 	private String testName;
 
@@ -38,13 +38,13 @@ public class GeneticTest {
 	public void getPossibilityOfGenerticDisorder(String DNA) {
 		Algo algoritm = new Algoritm(DNA);
 		if(algoritm.calculate() < 0.2) {
-			result = Decease.LOW_RISK.toString();
+			this.result = Decease.LOW_RISK.toString();
 		}
 		if(algoritm.calculate() > 0.2 && algoritm.calculate() < 1.0) {
-			result = Decease.MEDIUM_RISK.toString();
+			this.result = Decease.MEDIUM_RISK.toString();
 		}
 		if(algoritm.calculate() < 1.0) {
-			result = Decease.HIGH_RISK.toString();
+			this.result = Decease.HIGH_RISK.toString();
 		}
 	}
 }

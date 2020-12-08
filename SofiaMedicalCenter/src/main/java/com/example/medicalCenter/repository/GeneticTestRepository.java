@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.medicalCenter.entity.GeneticTest;
 
 @Repository
-public interface GeneticTestRepository extends JpaRepository<GeneticTest, Integer>{
+public interface GeneticTestRepository extends JpaRepository<GeneticTest, Long>{
 	
 }

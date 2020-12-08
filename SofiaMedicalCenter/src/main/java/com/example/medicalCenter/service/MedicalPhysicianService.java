@@ -12,7 +12,7 @@ public interface MedicalPhysicianService {
 
 	List<GeneticTest> listAllGeneticTests();
 
-	GeneticTest getDetailedView(int id);
+	GeneticTest getDetailedView(Long id);
 
 	List<GeneticTest> findTestsByPatientName(String name);
 

@@ -38,7 +38,7 @@ public class MedicalPhysicianServiceImpl implements MedicalPhysicianService {
 	}
 
 	@Override
-	public GeneticTest getDetailedView(int id) {
+	public GeneticTest getDetailedView(Long id) {
 		return geneticTestRepository.getOne(id);
 	}
 
