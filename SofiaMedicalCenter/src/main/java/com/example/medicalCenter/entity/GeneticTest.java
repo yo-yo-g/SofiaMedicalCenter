@@ -1,7 +1,5 @@
 package com.example.medicalCenter.entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +9,7 @@ import javax.persistence.Table;
 import com.example.medicalCenter.algoritm.Algo;
 import com.example.medicalCenter.algoritm.Algoritm;
 import com.example.medicalCenter.enums.Decease;
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,11 +28,12 @@ public class GeneticTest {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ID;
 
+	@NotNull
 	private String testName;
 
 	private String result;
 
-	private LocalDate dateOfExecution;
+	private String dateOfExecution;
 
 	public void getPossibilityOfGenerticDisorder(String DNA) {
 		Algo algoritm = new Algoritm(DNA);
@@ -47,4 +47,11 @@ public class GeneticTest {
 			this.result = Decease.HIGH_RISK.toString();
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "GeneticTest [ID=" + ID + ", testName=" + testName + ", result=" + result + ", dateOfExecution="
+				+ dateOfExecution + "]";
+	}
+	
 }

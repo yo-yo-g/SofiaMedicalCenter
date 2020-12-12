@@ -1,8 +1,12 @@
 package com.example.medicalCenter.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +31,6 @@ public class MedicalCenterController {
 	private static final String PATIENT = "Patient ";
 	
 	private static final String PHYSICIAN = "Medical physician ";
-	
-	private static final String TEST = "Genetic test ";
 
 	public MedicalCenterController(PatientService patientService, MedicalPhysicianService medicalPhysicianService) {
 		this.patientService = patientService;
@@ -40,6 +42,11 @@ public class MedicalCenterController {
 		patientService.createPatient(patient);
 		return new ResponseEntity<>(PATIENT + "is created successfully", HttpStatus.CREATED);
 	}
+	
+	@GetMapping("/listAllTestsForPatient/{id}")
+	public List<GeneticTest> listAllTestsForPatient(@PathVariable("id") Long id) {
+		return patientService.listAllGeneticTestForPatient(id);
+	}
 
 	@PostMapping("/createMedicalPhysician")
 	public ResponseEntity<Object> createMedicalPhysician(@RequestBody MedicalPhysician medicalPhysician) {
@@ -47,9 +54,31 @@ public class MedicalCenterController {
 		return new ResponseEntity<>(PHYSICIAN + "is created successfully", HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/createGeneticTest")
-	public ResponseEntity<Object> createGeneticTest(@RequestBody Patient patient, @RequestBody  GeneticTest geneticTest) {
-		medicalPhysicianService.startGeneticTestWithParameters(patient, geneticTest);
-		return new ResponseEntity<>(TEST + " is created successfully", HttpStatus.CREATED);
+	@GetMapping("/listAllTests")
+	public List<GeneticTest> listAllTests() {
+		return medicalPhysicianService.listAllGeneticTests();
 	}
+	
+	@GetMapping("/getDetailedViewForTest/{id}")
+	public GeneticTest getDetailedViewForTest(@PathVariable("id") Long id) {
+		return medicalPhysicianService.getDetailedView(id);
+	}
+	
+	@GetMapping("/findTestByPatientName/{name}")
+	public List<GeneticTest> findTestsByPatientName(@PathVariable("name") String name) {
+		return medicalPhysicianService.findTestsByPatientName(name);
+	}
+	
+	@GetMapping("/findTestByPatientEmail/{phoneNumber}")
+	public List<GeneticTest> findTestsByPatientEmail(@PathVariable("phoneNumber") String phoneNumber) {
+		return medicalPhysicianService.findTestsByPatientPhoneNumber(phoneNumber);
+	}
+	
+	@PostMapping("/createGeneticTest")
+	public String createGeneticTest(@RequestBody Patient patient,@RequestBody GeneticTest geneticTest) {
+		return medicalPhysicianService.startGeneticTestWithParameters(patient, geneticTest);
+	}
+	
+	
+	
 }

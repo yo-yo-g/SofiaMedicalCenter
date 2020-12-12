@@ -14,6 +14,9 @@ import com.example.medicalCenter.repository.GeneticTestRepository;
 import com.example.medicalCenter.repository.MedicalPhysicianRepository;
 import com.example.medicalCenter.repository.PatientRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Transactional
 @Service
 public class MedicalPhysicianServiceImpl implements MedicalPhysicianService {
@@ -44,37 +47,53 @@ public class MedicalPhysicianServiceImpl implements MedicalPhysicianService {
 
 	@Override
 	public List<GeneticTest> findTestsByPatientName(String name) {
-		List<Patient> patients = patientRepository.findAll();
-		for(Patient p : patients) {
-			if(p.getPatientName().equals(name)) {
-				return p.getGeneticTest();
-			}
+		if (!checkConditionForName(name)) {
+			log.error("Patient with this name" + name + " is not found");
 		}
-		
-		return null;
+
+		return medicalPhysicianRepository.findByName(name).getGeneticTest();
 	}
 
 	@Override
 	public List<GeneticTest> findTestsByPatientPhoneNumber(String phoneNumber) {
-		List<Patient> patients = patientRepository.findAll();
-		for(Patient p : patients) {
-			if(p.getPhoneNumber().equals(phoneNumber)) {
-				return p.getGeneticTest();
-			}
+		if (!checkConditionForPhoneNumber(phoneNumber)) {
+			log.error("Patient with this phone number" + phoneNumber +" is not found");
 		}
 		
-		return null;
+		return medicalPhysicianRepository.findByPhoneNumber(phoneNumber).getGeneticTest();
 	}
 
 	@Override
 	public String startGeneticTestWithParameters(Patient patient, GeneticTest geneticTest) {
 		List<Patient> patients = patientRepository.findAll();
-		if(!patients.contains(patient)) {
-			return "There is no such patient";
+		if (!patients.contains(patient)) {
+			log.error("No such patient");
 		}
 		geneticTest.getPossibilityOfGenerticDisorder(patient.getDNA());
 		patient.getGeneticTest().add(geneticTest);
 		return geneticTest.getResult();
+	}
+
+	private boolean checkConditionForPhoneNumber(String phoneNumber) {
+		boolean result = false;
+		List<Patient> patients = patientRepository.findAll();
+		for (Patient p : patients) {
+			if (p.getPhoneNumber().equals(phoneNumber)) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	private boolean checkConditionForName(String name) {
+		boolean result = false;
+		List<Patient> patients = patientRepository.findAll();
+		for (Patient p : patients) {
+			if (p.getPatientName().equals(name)) {
+				result = true;
+			}
+		}
+		return result;
 	}
 
 }

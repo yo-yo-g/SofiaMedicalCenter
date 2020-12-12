@@ -3,6 +3,7 @@ package com.example.medicalCenter.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class Patient {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<GeneticTest> geneticTest;
 	
+	@Column(name="patient_name", unique=true)
 	@NotNull
 	private String patientName;
 
@@ -50,11 +52,11 @@ public class Patient {
 
 	@NotNull
 	private String DNA;
-	
+
 	@Override
 	public String toString() {
-		return "Patient [name=" + patientName + ", age=" + age + ", phoneNumber=" + phoneNumber + ", email=" + email
-				+ ", symptoms=" + symptoms + ", DNA=" + DNA + "]";
+		return "Patient [geneticTest=" + geneticTest + ", patientName=" + patientName + ", age=" + age
+				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", symptoms=" + symptoms + ", DNA=" + DNA + "]";
 	}
 
 }
