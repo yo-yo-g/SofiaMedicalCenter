@@ -7,9 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.medicalCenter.algoritm.Algo;
+import com.example.medicalCenter.algoritm.Algoritm;
 import com.example.medicalCenter.entity.GeneticTest;
 import com.example.medicalCenter.entity.MedicalPhysician;
 import com.example.medicalCenter.entity.Patient;
+import com.example.medicalCenter.enums.Decease;
 import com.example.medicalCenter.repository.GeneticTestRepository;
 import com.example.medicalCenter.repository.MedicalPhysicianRepository;
 import com.example.medicalCenter.repository.PatientRepository;
@@ -69,9 +72,14 @@ public class MedicalPhysicianServiceImpl implements MedicalPhysicianService {
 		if (!patients.contains(patient)) {
 			log.error("No such patient");
 		}
-		geneticTest.getPossibilityOfGenerticDisorder(patient.getDNA());
+		getPossibilityOfGenerticDisorder(geneticTest, patient.getDNA());
 		patient.getGeneticTest().add(geneticTest);
 		return geneticTest.getResult();
+	}
+	
+	@Override
+	public GeneticTest redoGeneticTest(GeneticTest geneticTest) {
+		return geneticTestRepository.getOne(geneticTest.getID());
 	}
 
 	private boolean checkConditionForPhoneNumber(String phoneNumber) {
@@ -94,6 +102,19 @@ public class MedicalPhysicianServiceImpl implements MedicalPhysicianService {
 			}
 		}
 		return result;
+	}
+
+	private void getPossibilityOfGenerticDisorder(GeneticTest geneticTest, String DNA) {
+		Algo algoritm = new Algoritm(DNA);
+		if(algoritm.calculate() < 0.2) {
+			geneticTest.setResult(Decease.LOW_RISK.toString());
+		}
+		if(algoritm.calculate() > 0.2 && algoritm.calculate() < 1.0) {
+			geneticTest.setResult(Decease.MEDIUM_RISK.toString());
+		}
+		if(algoritm.calculate() < 1.0) {
+			geneticTest.setResult(Decease.HIGH_RISK.toString());
+		}
 	}
 
 }

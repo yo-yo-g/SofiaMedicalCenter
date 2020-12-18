@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,8 @@ public class MedicalCenterController {
 	private static final String PATIENT = "Patient ";
 	
 	private static final String PHYSICIAN = "Medical physician ";
+	
+	private static final String TEST = "Genetic test ";
 
 	public MedicalCenterController(PatientService patientService, MedicalPhysicianService medicalPhysicianService) {
 		this.patientService = patientService;
@@ -54,6 +57,12 @@ public class MedicalCenterController {
 		return new ResponseEntity<>(PHYSICIAN + "is created successfully", HttpStatus.CREATED);
 	}
 	
+	@PutMapping("/redoGeneticTest")
+	public ResponseEntity<Object> redoGeneticTest(@RequestBody GeneticTest geneticTest) {
+		medicalPhysicianService.redoGeneticTest(geneticTest);
+		return new ResponseEntity<>(TEST + "redone successfully", HttpStatus.OK);
+	}
+	
 	@GetMapping("/listAllTests")
 	public List<GeneticTest> listAllTests() {
 		return medicalPhysicianService.listAllGeneticTests();
@@ -70,7 +79,7 @@ public class MedicalCenterController {
 	}
 	
 	@GetMapping("/findTestByPatientEmail/{phoneNumber}")
-	public List<GeneticTest> findTestsByPatientEmail(@PathVariable("phoneNumber") String phoneNumber) {
+	public List<GeneticTest> findTestsByPatientPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
 		return medicalPhysicianService.findTestsByPatientPhoneNumber(phoneNumber);
 	}
 	

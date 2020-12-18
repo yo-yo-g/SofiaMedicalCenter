@@ -13,6 +13,8 @@ public interface MedicalPhysicianService {
 	List<GeneticTest> listAllGeneticTests();
 
 	GeneticTest getDetailedView(Long id);
+	
+	GeneticTest redoGeneticTest(GeneticTest geneticTest);
 
 	List<GeneticTest> findTestsByPatientName(String name);
 
